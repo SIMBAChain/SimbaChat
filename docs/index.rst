@@ -61,12 +61,12 @@ Before Starting make sure you have an account on the Simba Dashboard and an Ethe
    :align:   center
 Converting the SimbaChat example to your app
 ***************
-*Setting the Env Variables
-   *To set the signing key: firebase functions:config:set signing.key=“[YOUR PRIVATE KEY WITHOUT THE 0x]”
-   *To set the api key: firebase functions:config:set simba.key=“[YOUR API KEY]”
-*Setting the public address
-   *At line 41: const from = "[YOUR PUBLIC ETHEREUM KEY]";
-*Changing the url
-   *At line 44: const baseUrl = "[YOUR URL TO SIMBACHAIN API(example:https://api.simbachain.com/v1/simbaChatz)]";
-*Changing the Simba Url
+* Setting the Env Variables
+   * To set the signing key: firebase functions:config:set signing.key=“[YOUR PRIVATE KEY WITHOUT THE 0x]”
+   * To set the api key: firebase functions:config:set simba.key=“[YOUR API KEY]”
+* Setting the public address
+   * At line 41: const from = "[YOUR PUBLIC ETHEREUM KEY]";
+* Changing the url
+   * At line 44: const baseUrl = "[YOUR URL TO SIMBACHAIN API(example:https://api.simbachain.com/v1/simbaChatz)]";
+* Changing the Simba Url
 
