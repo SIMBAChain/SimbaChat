@@ -73,3 +73,4 @@ Converting the SimbaChat example to your app
    * Guide for setting up the hosting for firebase. https://firebase.google.com/docs/hosting/quickstart
    * Based off of this firebase example application. https://codelabs.developers.google.com/codelabs/firebase-web/#0
 
+Github Repo https://github.com/SIMBAChain/SimbaChat
