@@ -1,0 +1,182 @@
+<!doctype html>
+<!--
+  Copyright 2015 Google Inc. All rights reserved.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+      https://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Learn how to use the Firebase platform on the Web">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIMBA Chat</title>
+
+  <!-- Disable tap highlight on IE -->
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- Web Application Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="SIMBA Chat">
+  <meta name="theme-color" content="#303F9F">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SIMBA Chat">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#303F9F">
+
+  <!-- Tile icon for Win8 -->
+  <meta name="msapplication-TileColor" content="#3372DF">
+  <meta name="msapplication-navbutton-color" content="#303F9F">
+
+  <!-- Material Design Lite -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+  <!-- App Styling -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="styles/main.css">
+
+  <!-- Dialog Polyfill -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.10/dialog-polyfill.min.css" integrity="sha256-qVjBFbunjrWQ4IikV5dkK1ziW9XKskisX1rUbCIJEhk=" crossorigin="anonymous" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/dialog-polyfill/0.4.10/dialog-polyfill.min.js" integrity="sha256-KhfIhZkSs4GIyUPbxX6mD/9NFdY4u8nxiOa6yTHAFeA=" crossorigin="anonymous"></script>
+
+  <link rel="icon" href="https://simbachain.com/wp-content/uploads/2018/04/cropped-SIMBA_512x512-32x32.png">
+</head>
+<body>
+<div class="demo-layout-transparent mdl-layout mdl-js-layout">
+  <!-- Header section containing logo -->
+
+  <div class="mdl-layout__drawer">
+    <img hidden id="icon" class="icon unselectable" src="/images/icon.png">
+    <header class="demo-drawer-header">
+
+      <button hidden id="sign-in" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+        <i class="material-icons">account_circle</i>Sign-in with Google
+      </button>
+
+      <img id="user-picture" src="images/profile_placeholder.png" class="demo-avatar">
+      <div class="demo-avatar-dropdown">
+        <div hidden id="user-name"></div>
+        <div class="mdl-layout-spacer"></div>
+        <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+          <i class="material-icons user-option" role="presentation">arrow_drop_down</i>
+          <span class="visuallyhidden">Accounts</span>
+        </button>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+          <li id="sign-out" class="mdl-menu__item">Sign-out</li>
+        </ul>
+      </div>
+    </header>
+    <div>
+      <span id="rooms" class="rooms">
+        <strong class="room-font" id="room-title">Rooms</strong>             
+        <button id="create-room-button" class="mdl-button mdl-js-button mdl-button--icon add-btn">
+          <i class="material-icons add-icon">add</i>
+        </button>
+    </div>
+  </div>
+
+  <main class="mdl-layout__content mdl-color--grey-100">
+
+    <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+
+    <div id="welcome-card" class="mdl-card welcome-card mdl-cell mdl-cell--12-col">
+      <div class="mdl-card__media mdl-color-text--grey-50">
+        <h3 class="welcome-title">SIMBA Chat</h3>
+      </div>
+      <br>
+      <div class="mdl-color-text--grey-600 mdl-card__supporting-text">
+        Welcome to use SIMBA Chat, which is built with SIMBA Chain and Firebase. 
+      </div>
+      <div class="mdl-card__supporting-text meta mdl-color-text--grey-600">
+        <br>
+        <div>
+          <a class="weblink" href="https://simbachain.com/" target="_blank">
+            <strong>Please Check Out Our Website Here</strong>
+          </a>
+        </div>
+        <br>
+      </div>
+    </div>
+
+
+      <!-- Messages container -->
+      <div id="messages-card" class="hidden mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
+        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
+          <div class="room-box">
+            Room: 
+            <strong id="room-name"></strong>
+          </div>
+
+          <div id="messages">
+            <span id="message-filler"></span>
+          </div>
+          <form id="message-form" action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="message">
+              <label class="mdl-textfield__label" for="message">Message...</label>
+            </div>
+            <button id="submit" disabled type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent">
+              <i class="material-icons">send</i>Send
+            </button>
+          </form>
+          <form id="image-form" class="hidden" action="#">
+            <input id="mediaCapture" type="file" accept="image/*" capture="camera">
+            <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+              <i class="material-icons">image</i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+      </div>
+
+    </div>
+  </main>
+
+  <dialog id="create-room-dialog" class="mdl-dialog">
+    <form action="#">
+      <h4 class="mdl-dialog__title">Create a new room</h4>
+      <div class="mdl-dialog__content">
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input room-name" type="text" id="room-name">
+          <label class="mdl-textfield__label" for="room-name">Room Name...</label>
+        </div>
+      </div>
+      <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent create">Create</button>
+        <button type="button" class="mdl-button close">Cancel</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+
+<!-- Import and configure the Firebase SDK -->
+<!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
+<!-- If you do not want to serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
+<script src="/__/firebase/5.5.3/firebase-app.js"></script>
+<script src="/__/firebase/5.5.3/firebase-auth.js"></script>
+<script src="/__/firebase/5.5.3/firebase-firestore.js"></script>
+<script src="/__/firebase/5.5.3/firebase-storage.js"></script>
+<script src="/__/firebase/5.5.3/firebase-messaging.js"></script>
+<script src="/__/firebase/init.js"></script>
+
+<script src="scripts/main.js"></script>
+</body>
+</html>
