@@ -4,7 +4,7 @@
 ******************
 SIMBA Chat
 ******************
-
+ .. note:: You may need to use the blaze plan on firebase for this application to work
 Using SIMBA Chain
 
 
@@ -61,9 +61,19 @@ Before Starting make sure you have an account on the Simba Dashboard and an Ethe
    :align:   center
 Converting the SimbaChat example to your app
 ***************
+
 * Setting the Env Variables
    * To set the signing key: firebase functions:config:set signing.key=“[YOUR PRIVATE KEY WITHOUT THE 0x]”
    * To set the api key: firebase functions:config:set simba.key=“[YOUR API KEY]”
+* Setting the Webhooks
+   * Go to app.simbachain.com 
+   * Go to Notifcation then Register Notification
+   * Select your application from the drop down menu
+   * Select WEBHOOK as type.
+   * Paste the webhook url from Firebase Console -> Functions -> Dashboard
+   * Create the webhook
+   
+   
 * Setting the public address
    * At line 41: const from = "[YOUR PUBLIC ETHEREUM KEY]";
 * Changing the url
@@ -73,4 +83,6 @@ Converting the SimbaChat example to your app
    * Guide for setting up the hosting for firebase. https://firebase.google.com/docs/hosting/quickstart
    * Based off of this firebase example application. https://codelabs.developers.google.com/codelabs/firebase-web/#0
 
+
 Github Repo https://github.com/SIMBAChain/SimbaChat
+SimbaChat https://chat.simbachain.com
