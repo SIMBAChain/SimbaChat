@@ -68,5 +68,8 @@ Converting the SimbaChat example to your app
    * At line 41: const from = "[YOUR PUBLIC ETHEREUM KEY]";
 * Changing the url
    * At line 44: const baseUrl = "[YOUR URL TO SIMBACHAIN API(example:https://api.simbachain.com/v1/simbaChatz)]";
-* Changing the Simba Url
+* Deploying the application
+   * Guide for setting up the firebase application. https://firebase.google.com/docs/web/setup
+   * Guide for setting up the hosting for firebase. https://firebase.google.com/docs/hosting/quickstart
+   * Based off of this firebase example application. https://codelabs.developers.google.com/codelabs/firebase-web/#0
 
